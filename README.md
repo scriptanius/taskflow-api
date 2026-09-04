@@ -75,4 +75,6 @@ This is a portfolio/demo project showing backend patterns, not a live production
 
 ---
 
-Built by [Your Name] — available for backend and API development work. [Link to Fiverr/Upwork profile]
+Built by scriptanius — available for backend and API development work. 
+[https://www.fiverr.com/s/WeZp1mE]
+[https://www.upwork.com/freelancers/~016c50977763ac7333]
