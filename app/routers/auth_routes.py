@@ -32,8 +32,9 @@ def register(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
     response_model=schemas.Token,
     summary="Step 2: Log in to get a token",
     description=(
-        "Log in with the email/password you registered with. Copy the returned "
-        "`access_token` and use the Authorize button above to unlock the task endpoints."
+        "Returns a bearer access_token for the given credentials. If you're using "
+        "the Swagger UI above, you don't need to call this manually — just use the "
+        "Authorize button, which handles login and token attachment for you."
     ),
 )
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
