@@ -9,7 +9,13 @@ from app import models, schemas, auth
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 
 
-@router.post("/", response_model=schemas.TaskOut, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/",
+    response_model=schemas.TaskOut,
+    status_code=status.HTTP_201_CREATED,
+    summary="Create a task",
+    description="Requires authentication (see the Authorize button above).",
+)
 def create_task(
     task_in: schemas.TaskCreate,
     db: Session = Depends(get_db),
@@ -22,7 +28,12 @@ def create_task(
     return task
 
 
-@router.get("/", response_model=List[schemas.TaskOut])
+@router.get(
+    "/",
+    response_model=List[schemas.TaskOut],
+    summary="List your tasks",
+    description="Returns only tasks belonging to the authenticated user. Optionally filter by `completed` or `priority`.",
+)
 def list_tasks(
     completed: Optional[bool] = None,
     priority: Optional[models.PriorityLevel] = None,

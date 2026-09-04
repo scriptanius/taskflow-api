@@ -8,7 +8,13 @@ from app import models, schemas, auth
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/register", response_model=schemas.UserOut, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/register",
+    response_model=schemas.UserOut,
+    status_code=status.HTTP_201_CREATED,
+    summary="Step 1: Create an account",
+    description="Create a new user with an email and password. No authentication required.",
+)
 def register(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
     existing = db.query(models.User).filter(models.User.email == user_in.email).first()
     if existing:
@@ -21,7 +27,15 @@ def register(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
     return user
 
 
-@router.post("/login", response_model=schemas.Token)
+@router.post(
+    "/login",
+    response_model=schemas.Token,
+    summary="Step 2: Log in to get a token",
+    description=(
+        "Log in with the email/password you registered with. Copy the returned "
+        "`access_token` and use the Authorize button above to unlock the task endpoints."
+    ),
+)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == form_data.username).first()
     if not user or not auth.verify_password(form_data.password, user.hashed_password):
